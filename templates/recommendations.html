@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Recommendations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <nav>
+        <div class="container">
+            <h1>Course Recommender</h1>
+            <ul>
+                <li><a href="/">Home</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Recommended Courses</h2>
+
+        {% if recommendations %}
+            <div class="recommendations-list">
+                {% for recommendation in recommendations %}
+                    <div class="course-item">
+                        <div class="course-info">
+                            <h3>{{ recommendation.course_name }}</h3>
+                            <p><strong>Rating:</strong> {{ recommendation.rating }}</p>
+                            <p><strong>Offered by:</strong> {{ recommendation.institution }}</p>
+                            <p><strong>Description:</strong> {{ recommendation.description }}</p>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No recommendations found. Please try again with a different course name.</p>           
+        {% endif %}
+        
+    </div>
+</body>
+</html>
