@@ -3,12 +3,12 @@ import pandas as pd
 from fuzzywuzzy import process
 from flask import Flask, render_template, request
 from sklearn.metrics.pairwise import cosine_similarity
+import nltk
 from nltk.stem import WordNetLemmatizer
 import re
 from sklearn.feature_extraction.text import TfidfVectorizer
-import nltk
 # Set the NLTK data path to your local directory
-nltk.data.path.append('nltk_data')  
+nltk.data.path.append('nltk-data')  
 
 # Ensure NLTK resources are available
 try:
