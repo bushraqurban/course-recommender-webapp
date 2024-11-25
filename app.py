@@ -6,11 +6,20 @@ from sklearn.metrics.pairwise import cosine_similarity
 from nltk.stem import WordNetLemmatizer
 import re
 from sklearn.feature_extraction.text import TfidfVectorizer
+# Ensure NLTK resources are available
+try:
+    nltk.data.find('corpora/wordnet')
+except LookupError:
+    nltk.download('wordnet')
 
 # Load pre-trained models and dataset
-similarity_matrix = pickle.load(open('similarity_matrix.pkl', 'rb'))
-vectorizer = pickle.load(open('tfidf_vectorizer.pkl', 'rb'))
-data = pd.read_csv('Coursera.csv', encoding='utf-8')
+try:
+    similarity_matrix = pickle.load(open('similarity_matrix.pkl', 'rb'))
+    vectorizer = pickle.load(open('tfidf_vectorizer.pkl', 'rb'))
+    data = pd.read_csv('Coursera.csv', encoding='utf-8')
+except (FileNotFoundError, pickle.UnpicklingError, pd.errors.EmptyDataError) as e:
+    print(f"Error loading files: {e}")
+    # Handle error appropriately (e.g., fall back to defaults, show error message, etc.)
 
 # Step 1: Remove duplicates based on specific columns
 data = data.drop_duplicates(subset=['Course Name', 'University', 'Difficulty Level', 'Course Rating',
