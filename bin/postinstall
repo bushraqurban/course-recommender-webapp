@@ -1,0 +1,4 @@
+#!/bin/sh
+# Post install hook to download NLTK resources on Heroku
+
+python -c "import nltk; nltk.download('wordnet')"
